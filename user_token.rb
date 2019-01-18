@@ -17,7 +17,7 @@ class UserToken
   end
 
   def self.secret_key
-    @secret_key ||= Rails.application.secrets.secret_key_base
+    @secret_key ||= Rails.application.credentials.secret_key_base
   end
 
   def self.expire_time
