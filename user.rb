@@ -8,4 +8,12 @@ class User < ApplicationRecord
     self.last_visit = Time.zone.now
     save
   end
+  
+  def increase_login_count
+    # 登录次数+1
+    increment!(:login_count)
+    # 登录天数+1
+    interval_day = (Time.zone.today - last_visit.to_date).to_i
+    increment!(:login_days) if interval_day >= 1
+  end
 end
