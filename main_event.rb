@@ -3,6 +3,7 @@ class MainEvent < ApplicationRecord
   mount_uploader :logo, ImageUploader
 
   has_many :event_schedules, -> { order(begin_time: :asc) }
+  has_many :event_infos, -> { order(id: :desc) }
 
   scope :begin_asc, -> { order(begin_time: :asc) }
   scope :begin_desc, -> { order(begin_time: :desc) }
