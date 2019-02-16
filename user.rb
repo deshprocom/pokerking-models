@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  mount_uploader :avatar, ImageUploader
   include UserFinders
   include UserUniqueValidator
   include UserNameGenerator
