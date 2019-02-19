@@ -1,7 +1,7 @@
 module Cancelable
   extend ActiveSupport::Concern
   included do
-    scope :canceled, -> { where(canceled: true) }
+    scope :uncanceled, -> { where(canceled: false) }
   end
 
   def canceled!
