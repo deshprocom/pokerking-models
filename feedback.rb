@@ -1,3 +1,3 @@
 class Feedback < ApplicationRecord
-  mount_uploader :image, ImageUploader
+  has_many :feedback_images, dependent: :destroy
 end
