@@ -1,0 +1,2 @@
+class PlatformQuestion < ApplicationRecord
+end
