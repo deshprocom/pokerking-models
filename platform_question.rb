@@ -1,2 +1,0 @@
-class PlatformQuestion < ApplicationRecord
-end
