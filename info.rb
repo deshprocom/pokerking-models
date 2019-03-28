@@ -5,6 +5,8 @@ class Info < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   scope :show_in_homepage, -> { where(only_show_in_event: false) }
+  scope :page_order, -> { order(position: :desc).order(id: :desc) }
+  scope :hot, -> { where(hot: true) }
 
   after_initialize do
     self.created_at ||= Time.current
