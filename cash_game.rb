@@ -1,5 +1,6 @@
 class CashGame < ApplicationRecord
   mount_uploader :image, ImageUploader
+  mount_uploader :image_en, ImageUploader
   has_many :cash_queues, dependent: :destroy
   scope :position_desc, -> { order(position: :desc).order(created_at: :desc) }
 
