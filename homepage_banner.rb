@@ -5,6 +5,10 @@ class HomepageBanner < ApplicationRecord
   validates :image, presence: true, if: :new_record?
   scope :position_desc, -> { order(position: :desc).order(id: :desc) }
 
+  before_create do
+    self.position = HomepageBanner.position_desc.first&.position.to_f + 100000
+  end
+
   def source
     @source ||= source_id && source_type.classify.safe_constantize.find(source_id)
   end
