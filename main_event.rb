@@ -13,4 +13,8 @@ class MainEvent < ApplicationRecord
     self.begin_time ||= Time.current
     self.end_time ||= Time.current
   end
+
+  before_create do
+    self.position = MainEvent.position_desc.first&.position.to_f + 100000
+  end
 end
