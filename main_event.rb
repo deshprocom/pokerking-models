@@ -2,6 +2,7 @@ class MainEvent < ApplicationRecord
   include Publishable
   mount_uploader :logo, ImageUploader
   scope :position_desc, -> { order(position: :desc) }
+  scope :position_asc, -> { order(position: :asc) }
 
   has_many :event_schedules, -> { order(begin_time: :asc) }
   has_many :infos, -> { order(id: :desc) }
