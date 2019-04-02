@@ -4,6 +4,6 @@ class CashQueue < ApplicationRecord
 
   # 当天排队的人数
   def current_day_members
-    cash_queue_members.current_day.count
+    cash_queue_members.count
   end
 end
