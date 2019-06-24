@@ -11,4 +11,8 @@ class AdminUser < ApplicationRecord
   def permissions
     @permissions ||= admin_roles.map(&:permissions).flatten.uniq
   end
+
+  def has_super_permission?
+    admin_roles.pluck(:name).include?('Super Admin')
+  end
 end
