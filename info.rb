@@ -3,6 +3,8 @@ class Info < ApplicationRecord
 
   belongs_to :main_event, optional: true
   mount_uploader :image, ImageUploader
+  has_many :info_tag_relations, dependent: :destroy
+  has_many :info_tags, through: :info_tag_relations
 
   scope :show_in_homepage, -> { where(only_show_in_event: false) }
   scope :page_order, -> { order(position: :desc).order(id: :desc) }

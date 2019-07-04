@@ -1,0 +1,2 @@
+class InfoTagRelation < ApplicationRecord
+end
