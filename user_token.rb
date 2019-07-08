@@ -21,6 +21,6 @@ class UserToken
   end
 
   def self.expire_time
-    30.days.since.to_i
+    90.days.since.to_i
   end
 end
