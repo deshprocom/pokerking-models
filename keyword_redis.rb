@@ -2,7 +2,7 @@ class KeywordRedis
   class << self
     def store_keyword(type, keyword)
       old_keyword = read_keyword(type)
-      new_keyword = keyword.blank? ? old_keyword : keyword + '|'+ old_keyword
+      new_keyword = keyword.blank? ? old_keyword : keyword + '|'+ old_keyword.to_s
       Rails.cache.write type, new_keyword, expires_in: 30.days
     end
 
