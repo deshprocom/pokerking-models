@@ -4,6 +4,8 @@ class User < ApplicationRecord
   include UserUniqueValidator
   include UserNameGenerator
   include UserCreator
+  include User::Favorite
+  has_many :actions, dependent: :destroy
 
   def touch_visit!
     self.last_visit = Time.zone.now
@@ -16,5 +18,9 @@ class User < ApplicationRecord
     # 登录天数+1
     interval_day = (Time.zone.today - last_visit.to_date).to_i
     increment!(:login_days) if interval_day >= 1
+  end
+
+  def action_favorites
+    actions.where(action_type: 'favorite')
   end
 end
