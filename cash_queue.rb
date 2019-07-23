@@ -16,4 +16,14 @@ class CashQueue < ApplicationRecord
   def blind_info
     straddle.to_i.zero? ? "#{small_blind}/#{big_blind}" : "#{small_blind}/#{big_blind}/#{straddle}"
   end
+
+  def queue_type_tmp
+    if !high_limit && !transfer
+      'basic'
+    elsif high_limit
+      'high limit'
+    else
+      'transfer request'
+    end
+  end
 end
