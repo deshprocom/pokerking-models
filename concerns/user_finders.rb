@@ -29,6 +29,12 @@ module UserFinders
     end
 
     ##
+    #  查找指定的用户 不需要验证区号
+    def by_mobile_without_code(mobile)
+      fetch_by_uniq_keys(mobile: mobile)
+    end
+
+    ##
     # 查找指定用户名的用户, 支持二级缓存
     def by_nickname(nickname)
       fetch_by_uniq_keys(nickname: nickname)
@@ -38,6 +44,12 @@ module UserFinders
     # 查找指定邮箱的用户, 支持二级缓存
     def by_email(email)
       fetch_by_uniq_keys(email: email)
+    end
+
+    ##
+    #  查找指定账户的用户，支持二级缓存
+    def by_account(account_id)
+      fetch_by_uniq_keys(account_id: account_id)
     end
   end
 end

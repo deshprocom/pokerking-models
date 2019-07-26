@@ -4,4 +4,5 @@ class UserValidator
   include EmailValidator
   include MobileValidator
   include PasswordValidator
+  include AccountValidator
 end

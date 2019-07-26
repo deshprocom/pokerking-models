@@ -33,5 +33,10 @@ module UserUniqueValidator
       user = User.by_email(email)
       user.present? && (exclude_user_uuid.blank? || user.user_uuid != exclude_user_uuid)
     end
+
+    def account_id_exists?(account, exclude_user_uuid = nil)
+      user = User.by_account(account)
+      user.present? && (exclude_user_uuid.blank? || user.user_uuid != exclude_user_uuid)
+    end
   end
 end
