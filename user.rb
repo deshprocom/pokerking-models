@@ -6,6 +6,7 @@ class User < ApplicationRecord
   include UserCreator
   include User::Favorite
   has_many :actions, dependent: :destroy
+  has_many :notifications
 
   def touch_visit!
     self.last_visit = Time.zone.now
