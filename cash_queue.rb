@@ -26,4 +26,12 @@ class CashQueue < ApplicationRecord
       'transfer request'
     end
   end
+
+  def current_user_index(current_user)
+    return '' if current_user.blank?
+    # 查看当前用户 该queue下面是否有报名 如果有 取出其在该盲注下的报名序号
+    member = cash_queue_members.where(user_id: current_user.id)&.first
+    return '' if member.blank?
+    member.get_index
+  end
 end
