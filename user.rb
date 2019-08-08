@@ -7,6 +7,7 @@ class User < ApplicationRecord
   include User::Favorite
   has_many :actions, dependent: :destroy
   has_many :notifications
+  has_many :cash_queue_members, dependent: :destroy
 
   def touch_visit!
     self.last_visit = Time.zone.now

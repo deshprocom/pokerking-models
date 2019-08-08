@@ -17,4 +17,14 @@ class Notification < ApplicationRecord
            content: content,
            source: cash_queue)
   end
+
+  def self.cancel_queue_notify(user, cash_queue)
+    cash_game_name = cash_queue.cash_game.name # 扑克房名字
+    content = "取消：#{cash_game_name}盲注#{cash_queue.blind_info}报名成功！"
+    create(user: user,
+           notify_type: 'cancel_apply',
+           title: '取消排队通知',
+           content: content,
+           source: cash_queue)
+  end
 end
