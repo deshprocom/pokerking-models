@@ -1,6 +1,6 @@
 class Notification < ApplicationRecord
   belongs_to :source, polymorphic: true
-  belongs_to :user
+  belongs_to :user, optional: true
   serialize :extra_data
 
   after_create do
