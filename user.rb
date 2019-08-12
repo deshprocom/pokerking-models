@@ -25,4 +25,15 @@ class User < ApplicationRecord
   def action_favorites
     actions.where(action_type: 'favorite')
   end
+
+  def notifies type
+    case type
+    when 'event'
+      notifications.where(notify_type: 'event')
+    when 'apply'
+      notifications.where('notify_type = ? or notify_type = ?', 'scan_apply', 'cancel_apply')
+    else
+      notifications
+    end.order(id: :desc)
+  end
 end
