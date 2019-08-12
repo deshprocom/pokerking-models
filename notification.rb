@@ -29,6 +29,16 @@ class Notification < ApplicationRecord
            source: cash_queue)
   end
 
+  def self.create_info_notify(info)
+    info_name = info.title # 资讯的名称
+    content = info_name
+    create(user: nil,
+           notify_type: 'info',
+           title: info_name,
+           content: content,
+           source: info)
+  end
+
   def check_notify(user, resource)
     # 判断是否下发消息
     case resource.notify_type
