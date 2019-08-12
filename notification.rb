@@ -4,7 +4,8 @@ class Notification < ApplicationRecord
   serialize :extra_data
 
   after_create do
-    DpPush::NotifyUser.call(user, content)
+    flag = check_notify(user, self)
+    DpPush::NotifyUser.call(user, content) if flag # 打开了消息通知才推送
   end
 
   def self.create_queue_notify(user, cash_queue)
@@ -26,5 +27,19 @@ class Notification < ApplicationRecord
            title: '取消排队通知',
            content: content,
            source: cash_queue)
+  end
+
+  def check_notify(user, resource)
+    # 判断是否下发消息
+    case resource.notify_type
+    when 'scan_apply'
+      user.apply_notify
+    when 'cancel_apply'
+      user.apply_notify
+    when 'event'
+      user.event_notify
+    else
+      false
+    end
   end
 end
