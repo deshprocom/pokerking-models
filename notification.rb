@@ -4,8 +4,7 @@ class Notification < ApplicationRecord
   serialize :extra_data
 
   after_create do
-    flag = check_notify(user, self)
-    DpPush::NotifyUser.call(user, content) if flag # 打开了消息通知才推送
+    send_notify(user, self)
   end
 
   def self.create_queue_notify(user, cash_queue)
@@ -17,6 +16,7 @@ class Notification < ApplicationRecord
            title: '排队进程通知',
            content: content,
            source: cash_queue)
+    user.increment!(:notify_apply_unread)
   end
 
   def self.cancel_queue_notify(user, cash_queue)
@@ -27,27 +27,37 @@ class Notification < ApplicationRecord
            title: '取消排队通知',
            content: content,
            source: cash_queue)
+    user.decrement!(:notify_apply_unread)
   end
 
   def self.create_info_notify(info)
     info_name = info.title # 资讯的名称
     content = info_name
     create(user: nil,
-           notify_type: 'info',
+           notify_type: 'event',
            title: info_name,
            content: content,
            source: info)
+    User.all.each do |user|
+      # 给每一个用户记录有新闻未读
+      unread = user.notify_event_unread
+      unread_new = unread + 1
+      user.update(notify_event_unread: unread_new)
+    end
   end
 
-  def check_notify(user, resource)
+  def send_notify(user, resource)
     # 判断是否下发消息
     case resource.notify_type
     when 'scan_apply'
-      user.apply_notify
+      DpPush::NotifyUser.call(user, resource.content) if user.apply_notify
     when 'cancel_apply'
-      user.apply_notify
+      DpPush::NotifyUser.call(user, resource.content) if user.apply_notify
     when 'event'
-      user.event_notify
+      # 这里是给所有开启通知项的用户下发消息
+      event_notify_users.each do |u|
+        DpPush::NotifyUser.call(u, resource.content)
+      end
     else
       false
     end
