@@ -29,7 +29,7 @@ class User < ApplicationRecord
   def notifies type
     case type
     when 'event'
-      notifications.where(notify_type: 'event')
+      Notification.where(notify_type: 'event')
     when 'apply'
       notifications.where('notify_type = ? or notify_type = ?', 'scan_apply', 'cancel_apply')
     else
