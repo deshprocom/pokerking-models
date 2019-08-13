@@ -55,7 +55,7 @@ class Notification < ApplicationRecord
       DpPush::NotifyUser.call(user, resource.content) if user.apply_notify
     when 'event'
       # 这里是给所有开启通知项的用户下发消息
-      event_notify_users.each do |u|
+      User.event_notify_users.each do |u|
         DpPush::NotifyUser.call(u, resource.content)
       end
     else

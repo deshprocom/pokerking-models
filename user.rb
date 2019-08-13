@@ -37,7 +37,7 @@ class User < ApplicationRecord
     end.order(id: :desc)
   end
 
-  def event_notify_users
+  def self.event_notify_users
     User.find(User.where(event_notify: true).pluck(:id))
   end
 end
