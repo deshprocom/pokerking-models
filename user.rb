@@ -40,4 +40,12 @@ class User < ApplicationRecord
   def self.event_notify_users
     User.find(User.where(event_notify: true).pluck(:id))
   end
+
+  def notify_apply_unread_new
+    notify_apply_unread < 0 ? 0 : notify_apply_unread
+  end
+
+  def notify_event_unread_new
+    notify_event_unread < 0 ? 0 : notify_event_unread
+  end
 end
