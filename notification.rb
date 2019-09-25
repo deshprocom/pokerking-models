@@ -27,7 +27,8 @@ class Notification < ApplicationRecord
            title: '取消排队通知',
            content: content,
            source: cash_queue)
-    user.decrement!(:notify_apply_unread)
+    # 取消的时候 消息数应该也是+1
+    user.increment!(:notify_apply_unread)
   end
 
   def self.create_info_notify(info)
