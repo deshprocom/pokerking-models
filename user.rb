@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :actions, dependent: :destroy
   has_many :notifications
   has_many :cash_queue_members, dependent: :destroy
+  # 新增用户和实名为 多对1 的关系
+  has_many :user_extras
 
   def touch_visit!
     self.last_visit = Time.zone.now
