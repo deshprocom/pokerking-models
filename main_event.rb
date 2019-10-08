@@ -18,4 +18,8 @@ class MainEvent < ApplicationRecord
   before_create do
     self.position = MainEvent.position_desc.first&.position.to_f + 100000
   end
+
+  def amap_navigation_url
+    "https://uri.amap.com/navigation?to=#{amap_location},#{name}&src=kkapi&callnative=1"
+  end
 end
