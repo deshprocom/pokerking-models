@@ -4,7 +4,7 @@ class CashQueue < ApplicationRecord
   has_many :cash_queue_members, dependent: :destroy
   scope :position_desc, -> { order(position: :desc) }
   scope :position_asc, -> { order(position: :asc) }
-  has_many :notifications, dependent: :destroy
+  has_many :notifications, as: :source, dependent: :destroy
 
   before_create do
     self.position = CashQueue.position_desc.first&.position.to_f + 100000
