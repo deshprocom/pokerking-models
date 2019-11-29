@@ -5,6 +5,7 @@ class Info < ApplicationRecord
   mount_uploader :image, ImageUploader
   has_many :info_tag_relations, dependent: :destroy
   has_many :info_tags, through: :info_tag_relations
+  has_many :homepage_banners, as: :source, dependent: :destroy
 
   scope :show_in_homepage, -> { where(only_show_in_event: false) }
   scope :page_order, -> { order(position: :desc).order(id: :desc) }
