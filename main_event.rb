@@ -9,6 +9,7 @@ class MainEvent < ApplicationRecord
 
   scope :begin_asc, -> { order(begin_time: :asc) }
   scope :begin_desc, -> { order(begin_time: :desc) }
+  has_paper_trail
 
   after_initialize do
     self.begin_time ||= Time.current

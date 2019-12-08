@@ -5,6 +5,7 @@ class CashQueue < ApplicationRecord
   scope :position_desc, -> { order(position: :desc) }
   scope :position_asc, -> { order(position: :asc) }
   has_many :notifications, as: :source, dependent: :destroy
+  has_paper_trail
 
   before_create do
     self.position = CashQueue.position_desc.first&.position.to_f + 100000

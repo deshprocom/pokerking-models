@@ -6,6 +6,7 @@ class CashQueueMember < ApplicationRecord
   scope :position_desc, -> { order(position: :desc) }
   scope :position_asc, -> { order(position: :asc) }
   belongs_to :user, optional: true
+  has_paper_trail
 
   before_create do
     self.position = CashQueueMember.position_desc.first&.position.to_f + 100000

@@ -3,4 +3,5 @@ class InfoTag < ApplicationRecord
   has_many :infos, through: :info_tag_relations
   validates :name, presence: true
   validates :name_en, presence: true
+  has_paper_trail
 end

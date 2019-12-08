@@ -10,6 +10,7 @@ class Info < ApplicationRecord
   scope :show_in_homepage, -> { where(only_show_in_event: false) }
   scope :page_order, -> { order(position: :desc).order(id: :desc) }
   scope :hot, -> { where(hot: true) }
+  has_paper_trail
 
   after_initialize do
     self.created_at ||= Time.current
