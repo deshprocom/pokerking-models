@@ -8,6 +8,8 @@ class Info < ApplicationRecord
   has_many :homepage_banners, as: :source, dependent: :destroy
   has_one :info_en, foreign_key: 'id', dependent: :destroy
   accepts_nested_attributes_for :info_en, update_only: true
+  has_one :info_tc, foreign_key: 'id', dependent: :destroy
+  accepts_nested_attributes_for :info_tc, update_only: true
 
   scope :show_in_homepage, -> { where(only_show_in_event: false) }
   scope :page_order, -> { order(position: :desc).order(id: :desc) }
@@ -24,10 +26,8 @@ class Info < ApplicationRecord
   end
 
   after_update do
-    puts "after update comming"
-    Rails.logger.info "after update comming"
-    info_en || build_info_en
-    info_en.save
+    info_en&.save
+    info_tc&.save
   end
 
   def hot!
