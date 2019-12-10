@@ -7,7 +7,7 @@ class AdminUser < ApplicationRecord
 
   has_many :admin_user_roles
   has_many :admin_roles, through: :admin_user_roles
-  has_paper_trail
+  has_paper_trail on: [:destroy]
 
   def permissions
     @permissions ||= admin_roles.map(&:permissions).flatten.uniq
