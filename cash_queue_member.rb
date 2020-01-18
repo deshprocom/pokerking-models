@@ -5,6 +5,8 @@ class CashQueueMember < ApplicationRecord
   scope :current_day, -> { where('created_at >= ? and created_at <= ?', Date.current.beginning_of_day, Date.current.end_of_day) }
   scope :position_desc, -> { order(position: :desc) }
   scope :position_asc, -> { order(position: :asc) }
+  scope :confirmed_numbers, -> { where(confirmed: true) }
+  scope :unconfirmed_numbers, -> { where(confirmed: false) }
   belongs_to :user, optional: true
   if ENV['CURRENT_PROJECT'] == 'cms'
     has_paper_trail
